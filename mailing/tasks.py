@@ -1,4 +1,5 @@
 import datetime
+import smtplib
 from datetime import timedelta
 from time import strftime
 
@@ -10,7 +11,7 @@ from django.core.mail import send_mail
 from dotenv import load_dotenv
 import os
 
-from mailing.models import Mailing
+from mailing.models import Mailing, MailingAttempt
 
 load_dotenv()
 
@@ -21,6 +22,9 @@ def send_mailing():
 
     # Запускаю цикл по рассылкам, где получаю данные и запускаю отправку сообщений
     for send_mail_for_customers in mailings:
+
+        # Создаю словарь, который будет содержать почту получателя и получил ли он письмо
+        mailing_list_recipients = []
 
         # Узнаю надо ли отправить рассылку в данный момент цикла
         if send_mail_for_customers.mailing_start_date <= datetime.date.today() <= send_mail_for_customers.mailing_end_date:
@@ -54,12 +58,30 @@ def send_mailing():
 
                 # Отправляю рассылки
                 for mailing in mails:
-                    send_mail(
-                        subject=subject_of_letter,
-                        message=message,
-                        from_email=os.getenv('mail'),
-                        recipient_list=[mailing]
-                    )
+                    try:
+                        send_mail(
+                            subject=subject_of_letter,
+                            message=message,
+                            from_email=os.getenv('mail'),
+                            recipient_list=[mailing],
+                            fail_silently=False,
+                        )
+
+                        # Создаю получателя и добавляю его в список получивших письмо
+                        recipient = f'{mailing} - успешно получил рассылку'
+                        mailing_list_recipients.append(recipient)
+
+                    except smtplib.SMTPException as e:
+
+                        # Создаю получателя и добавляю его в список не получивших письмо
+                        recipient = f'{mailing} - не получил рассылку в связи с {e}'
+                        mailing_list_recipients.append(recipient)
+
+
+                # Создаю новый экземпляр модели попытки рассылки и пишу что он успешный
+                MailingAttempt.objects.create(date_and_time_of_last_mailing_attempt=strftime('%Y-%m-%d %H:%M:%S'),
+                                              mailing=send_mail_for_customers, attempt_status=mailing_list_recipients,
+                                              mail_server_response=)
 
             # Если рассылка отправляется не первый раз, то смотрю дату следующей рассылки, которую установил выше,
             # сравниваю с часом в который необходимо отправить рассылку и с минутой в которую необходимо отправить

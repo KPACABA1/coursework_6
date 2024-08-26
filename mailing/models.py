@@ -77,8 +77,7 @@ class MailingAttempt(models.Model):
     date_and_time_of_last_mailing_attempt = models.DateTimeField(verbose_name='Дата и время последней попытки рассылки')
     mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE, verbose_name='Связь рассылки и информации о её '
                                                                                 'статусе')
-    attempt_status = models.CharField(max_length=20, verbose_name='статус попытки(успешно/не успешно)')
-    mail_server_response = models.TextField(verbose_name='Ответ почтового сервера(если он был)', null=True, blank=True)
+    attempt_status = models.TextField(verbose_name='статус попытки(успешно/не успешно)')
 
     def __str__(self):
         return f'{self.attempt_status}'
