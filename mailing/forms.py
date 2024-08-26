@@ -33,4 +33,4 @@ class MailingForm(StyleFormMixin, ModelForm):
     """Класс форма для рассылок"""
     class Meta:
         model = Mailing
-        exclude = ('date_and_time_of_first_mailing', 'mailing_status')
+        exclude = ('date_and_time_of_first_mailing', 'mailing_status', 'date_letter_was_sent')

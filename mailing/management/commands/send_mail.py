@@ -1,7 +1,7 @@
 from django.core.management import BaseCommand
 
 
-from mailing.services import send_mailing, start
+from mailing.tasks import send_mailing
 
 
 class Command(BaseCommand):
@@ -9,5 +9,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """Соответственно метод для рассылки данных по почте"""
-        # send_mailing()
-        start()
+        send_mailing()

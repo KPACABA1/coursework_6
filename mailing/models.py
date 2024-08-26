@@ -55,6 +55,13 @@ class Mailing(models.Model):
                                 related_name="mailing_list_message", null=True, blank=True)
     customers_of_service = models.ManyToManyField(Customer, verbose_name="Пользователи сервиса",
                                                   related_name="customers_of_service")
+    mailing_start_date = models.DateField(verbose_name='Дата начала рассылки')
+    mailing_end_date = models.DateField(verbose_name='Дата окончания рассылки')
+    time_which_newsletter_sent = models.PositiveIntegerField(verbose_name='Час, в который нужно отправить письмо')
+    minute_when_newsletter_should_sent = models.PositiveIntegerField(verbose_name='минута, в которую нужно отправить'
+                                                                                  'сообщение')
+    date_letter_was_sent = models.DateField(null=True, blank=True,
+                                            verbose_name='Дата когда нужно отправить следующее письмо')
 
     def __str__(self):
         return f'{self.periodicity}'

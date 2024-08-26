@@ -1,12 +1,8 @@
-from apscheduler.schedulers.background import BackgroundScheduler
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
 from mailing.forms import MessageForm, CustomerForm, MailingForm
 from mailing.models import Message, Customer, Mailing
-from mailing.services import send_mailing
-
-
 # Create your views here.
 
 class MessageListView(ListView):

@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 
     # Мои приложения
     'mailing',
-    'django_apscheduler',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -87,7 +87,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('name_database'),
         'USER': os.getenv('user_database'),
-        'PASSWORD': os.getenv('password_database')
+        'PASSWORD': os.getenv('password_database'),
+        'HOST': 'localhost',
     }
 }
 
@@ -147,6 +148,11 @@ EMAIL_HOST_PASSWORD = os.getenv('password_mail')
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-# Настройки для apscheduler
-APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
-APSCHEDULER_RUN_NOW_TIMEOUT = 25
+# Настройка для установки моего часового пояса + 5 часов
+TIME_ZONE = 'Asia/Almaty'
+USE_TZ = True
+
+# Настройка для django-crontab
+CRONJOBS = [
+    ('*/1 * * * *', 'mailing.tasks.send_mailing')
+]
