@@ -57,9 +57,10 @@ class Mailing(models.Model):
                                                   related_name="customers_of_service")
     mailing_start_date = models.DateField(verbose_name='Дата начала рассылки')
     mailing_end_date = models.DateField(verbose_name='Дата окончания рассылки')
-    time_which_newsletter_sent = models.PositiveIntegerField(verbose_name='Час, в который нужно отправить письмо')
+    time_which_newsletter_sent = models.PositiveIntegerField(verbose_name='Час, в который нужно отправить письмо, пример'
+                                                                          '- 01 или 24')
     minute_when_newsletter_should_sent = models.PositiveIntegerField(verbose_name='минута, в которую нужно отправить'
-                                                                                  'сообщение')
+                                                                                  'сообщение, например 01 или 60')
     date_letter_was_sent = models.DateField(null=True, blank=True,
                                             verbose_name='Дата когда нужно отправить следующее письмо')
 
