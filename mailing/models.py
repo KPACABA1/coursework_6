@@ -57,10 +57,9 @@ class Mailing(models.Model):
                                                   related_name="customers_of_service")
     mailing_start_date = models.DateField(verbose_name='Дата начала рассылки')
     mailing_end_date = models.DateField(verbose_name='Дата окончания рассылки')
-    time_which_newsletter_sent = models.PositiveIntegerField(verbose_name='Час, в который нужно отправить письмо,'
-                                                                          'например 01 или 24')
-    minute_when_newsletter_should_sent = models.PositiveIntegerField(verbose_name='минута, в которую нужно отправить '
-                                                                                  'сообщение, например 01 или 60')
+    time_which_newsletter_sent = models.PositiveIntegerField(verbose_name='Час, в который нужно отправить письмо')
+    minute_when_newsletter_should_sent = models.PositiveIntegerField(verbose_name='минута, в которую нужно отправить'
+                                                                                  'сообщение')
     date_letter_was_sent = models.DateField(null=True, blank=True,
                                             verbose_name='Дата когда нужно отправить следующее письмо')
 
@@ -70,12 +69,3 @@ class Mailing(models.Model):
     class Meta:
         verbose_name = "Рассылка"
         verbose_name_plural = "Рассылки"
-
-
-class MailingAttempt(models.Model):
-    """Модель попытки рассылки"""
-    date_and_time_of_last_mailing = models.ForeignKey(Mailing, on_delete=models.SET_NULL,
-                                                      verbose_name="Дата и время последней попытки рассылки",
-                                                      related_name="date_and_time_of_last_mailing", null=True, blank=True)
-    attempt_status = models.CharField(max_length=20, default='Неизвестно', verbose_name='статус попытки рассылки'
-                                                                                        '(успешно/не успешно)')
