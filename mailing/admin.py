@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from mailing.models import Message, Customer, Periodicity, Mailing
+from mailing.models import Message, Customer, Periodicity, Mailing, Attempt
 
 
 # Register your models here.
@@ -26,3 +26,9 @@ class PeriodicityAdmin(admin.ModelAdmin):
 class MailingForMailingAdmin(admin.ModelAdmin):
     """Админка для рассылок"""
     list_display = ('id', 'mailing_status', 'periodicity')
+
+
+@admin.register(Attempt)
+class MailingAttemptAdmin(admin.ModelAdmin):
+    """Админка для попыток рассылок"""
+    list_display = ('mailing', 'date_and_time_of_last_mailing_attempt')

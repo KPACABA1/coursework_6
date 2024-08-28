@@ -72,7 +72,7 @@ class Mailing(models.Model):
         verbose_name_plural = "Рассылки"
 
 
-class MailingAttempt(models.Model):
+class Attempt(models.Model):
     """Модель попытки рассылки"""
     date_and_time_of_last_mailing_attempt = models.DateTimeField(verbose_name='Дата и время последней попытки рассылки')
     mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE, verbose_name='Связь рассылки и информации о её '

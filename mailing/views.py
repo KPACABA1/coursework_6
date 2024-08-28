@@ -2,7 +2,9 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
 from mailing.forms import MessageForm, CustomerForm, MailingForm
-from mailing.models import Message, Customer, Mailing
+from mailing.models import Message, Customer, Mailing, Attempt
+
+
 # Create your views here.
 
 class MessageListView(ListView):
@@ -72,9 +74,6 @@ class MailingListView(ListView):
     """Класс-контроллер для вывода всех рассылок"""
     model = Mailing
 
-    # def get_context_data(self, **kwargs):
-    #     start()
-
 
 class MailingCreateView(CreateView):
     """Класс контроллер для создания рассылок"""
@@ -99,3 +98,13 @@ class MailingDeleteView(DeleteView):
     """Класс-контроллер для удаления рассылки"""
     model = Mailing
     success_url = reverse_lazy('mailing:mailing_list')
+
+
+class AttemptListView(ListView):
+    """Класс-контроллер для вывода всех попыток рассылки"""
+    model = Attempt
+
+
+class AttemptDetailView(DetailView):
+    """Класс-контроллер для вывода информации по попытке рассылки"""
+    model = Attempt
