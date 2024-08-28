@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from django.conf.global_settings import AUTH_USER_MODEL
 # Импортирую данные для входа в почту и данные для входа в базу данных
 from dotenv import load_dotenv
 import os
@@ -45,7 +46,8 @@ INSTALLED_APPS = [
 
     # Мои приложения
     'mailing',
-    'django_crontab'
+    'django_crontab',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -156,3 +158,6 @@ USE_TZ = True
 CRONJOBS = [
     ('*/1 * * * *', 'mailing.tasks.send_mailing')
 ]
+
+# Настройки для работы с пользователями
+AUTH_USER_MODEL = 'users.User'
