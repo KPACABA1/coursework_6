@@ -1,11 +1,15 @@
 from django.db import models
 
+from users.models import User
+
 
 # Create your models here.
 class Message(models.Model):
     """Модель сообщений для рассылки"""
     subject_of_letter = models.CharField(max_length=100, verbose_name="Тема письма")
     body_of_letter = models.TextField(verbose_name='Тело письма')
+    creator = models.ForeignKey(User, verbose_name='Создатель сообщения', on_delete=models.SET_NULL,
+                                related_name="creator_message", null=True, blank=True)
 
     def __str__(self):
         return f'{self.subject_of_letter}'
@@ -22,6 +26,8 @@ class Customer(models.Model):
     first_name = models.CharField(max_length=50, verbose_name="Имя")
     patronymic = models.CharField(max_length=50, verbose_name="Отчество")
     comment = models.TextField(verbose_name='Комментарий')
+    creator = models.ForeignKey(User, verbose_name='Создатель клиента', on_delete=models.SET_NULL,
+                                related_name="creator_customer", null=True, blank=True)
 
     def __str__(self):
         return f'{self.contact_email}'
@@ -63,6 +69,9 @@ class Mailing(models.Model):
                                                                                   'сообщение, например 01 или 60')
     date_letter_was_sent = models.DateField(null=True, blank=True,
                                             verbose_name='Дата когда нужно отправить следующее письмо')
+    active = models.BooleanField(default=True, verbose_name='Активна рассылка или нет')
+    creator = models.ForeignKey(User, verbose_name='Создатель рассылки', on_delete=models.SET_NULL,
+                                related_name="creator_mailing", null=True, blank=True)
 
     def __str__(self):
         return f'{self.periodicity}'
@@ -70,6 +79,9 @@ class Mailing(models.Model):
     class Meta:
         verbose_name = "Рассылка"
         verbose_name_plural = "Рассылки"
+        permissions = [
+            ('can_disable_mailing', 'Может отключить рассылку')
+        ]
 
 
 class Attempt(models.Model):
