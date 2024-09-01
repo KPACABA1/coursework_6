@@ -19,18 +19,25 @@ class MessageForm(StyleFormMixin, ModelForm):
     """Класс форма для сообщений для рассылки"""
     class Meta:
         model = Message
-        fields = '__all__'
+        exclude = ('creator',)
 
 
 class CustomerForm(StyleFormMixin, ModelForm):
     """Класс форма для клиентов сервиса"""
     class Meta:
         model = Customer
-        fields = '__all__'
+        exclude = ('creator',)
 
 
 class MailingForm(StyleFormMixin, ModelForm):
     """Класс форма для рассылок"""
     class Meta:
         model = Mailing
-        exclude = ('date_and_time_of_first_mailing', 'mailing_status', 'date_letter_was_sent')
+        exclude = ('date_and_time_of_first_mailing', 'mailing_status', 'date_letter_was_sent', 'creator')
+
+
+class MailingManagerForm(StyleFormMixin, ModelForm):
+    """Класс форма для редактирования рассылки менеджером"""
+    class Meta:
+        model = Mailing
+        fields = ('active',)
