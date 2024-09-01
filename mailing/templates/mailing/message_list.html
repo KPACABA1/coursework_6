@@ -13,8 +13,10 @@
                     <li>{{ message.body_of_letter }}</li>
                 </ul>
                 <a class="p-2 btn btn-outline-primary" href="/info_message/{{ message.id }}/">Посмотреть</a>
+                {% if not perms.mailing.can_disable_mailing %}
                 <a class="p-2 btn btn-outline-primary" href="/edit_message/{{ message.id }}/">Редактировать</a>
                 <a class="p-2 btn btn-outline-primary" href="/delete_message/{{ message.id }}/">Удалить</a>
+                {% endif %}
 
 
             </div>
