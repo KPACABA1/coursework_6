@@ -34,4 +34,4 @@ urlpatterns = [
     # Урлы для попыток рассылки
     path('attempt/', AttemptListView.as_view(), name='attempt_list'),
     path('info_attempt/<int:pk>/', AttemptDetailView.as_view(), name='info_attempt'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
