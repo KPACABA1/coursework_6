@@ -16,7 +16,7 @@
         <a class="p-2 btn btn-outline-primary" href="/message/">Сообщения для рассылки</a>
         <a class="p-2 btn btn-outline-primary" href="/customer/">Клиенты сервиса</a>
         <a class="p-2 btn btn-outline-primary" href="/attempt/">Попытка рассылки</a>
-        {% if perms.user.can_view_list_of_users %}
+        {% if request.user.has_perm('users.can_view_list_of_users') %}
         <a class="p-2 btn btn-outline-primary" href="/users/user/">Пользователи</a>
         {% endif %}
         {% if user.is_authenticated %}
@@ -25,6 +25,7 @@
         <a class="p-2 btn btn-outline-primary" href="/users/login/">Войти</a>
         <a class="p-2 btn btn-outline-primary" href="/users/register/">Зарегистрироваться</a>
         {% endif %}
+        <a class="p-2 btn btn-outline-primary" href="/blog/main/">Главная страница</a>
     </nav>
 </div>
 
