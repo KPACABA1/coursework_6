@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'mailing',
     'django_crontab',
     'users',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -164,3 +165,7 @@ AUTH_USER_MODEL = 'users.User'
 # Настройка для того чтобы пользователя перекидывало на рассылки после авторизации
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# Настройки для работы изображений
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

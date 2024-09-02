@@ -12,9 +12,11 @@
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                     <li>{{ customer.last_name }}</li>
                 </ul>
+                {% if user == customer.creator %}
                 <a class="p-2 btn btn-outline-primary" href="/info_customer/{{ customer.id }}/">Посмотреть</a>
                 <a class="p-2 btn btn-outline-primary" href="/edit_customer/{{ customer.id }}/">Редактировать</a>
                 <a class="p-2 btn btn-outline-primary" href="/delete_customer/{{ customer.id }}/">Удалить</a>
+                {% endif %}
             </div>
         </div>
     </div>

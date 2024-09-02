@@ -30,7 +30,7 @@ class MessageCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class MessageUpdateView(UpdateView):
+class MessageUpdateView(LoginRequiredMixin, UpdateView):
     """Класс контролер для редактирования сообщения для рассылки"""
     model = Message
     form_class = MessageForm
@@ -43,7 +43,7 @@ class MessageDetailView(DetailView):
     model = Message
 
 
-class MessageDeleteView(DeleteView):
+class MessageDeleteView(LoginRequiredMixin, DeleteView):
     """Класс-контроллер для удаления сообщения для рассылки"""
     model = Message
     success_url = reverse_lazy('mailing:message_list')
@@ -69,7 +69,7 @@ class CustomerCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class CustomerUpdateView(UpdateView):
+class CustomerUpdateView(LoginRequiredMixin, UpdateView):
     """Класс контролер для редактирования клиентов сервиса"""
     model = Customer
     form_class = CustomerForm
@@ -81,7 +81,7 @@ class CustomerDetailView(DetailView):
     model = Customer
 
 
-class CustomerDeleteView(DeleteView):
+class CustomerDeleteView(LoginRequiredMixin, DeleteView):
     """Класс-контроллер для удаления клиента сервиса"""
     model = Customer
     success_url = reverse_lazy('mailing:customer_list')
@@ -127,7 +127,7 @@ class MailingDetailView(DetailView):
     model = Mailing
 
 
-class MailingDeleteView(DeleteView):
+class MailingDeleteView(LoginRequiredMixin, DeleteView):
     """Класс-контроллер для удаления рассылки"""
     model = Mailing
     success_url = reverse_lazy('mailing:mailing_list')
