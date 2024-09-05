@@ -106,6 +106,14 @@ class MailingCreateView(LoginRequiredMixin, CreateView):
         mailing.save()
         return super().form_valid(form)
 
+    def get_form_kwargs(self):
+        """Метод для того, при создании рассылки можно было выбрать только те сообщения и клиентов, у которых совпадают
+        создатели"""
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = Mailing(creator=self.request.user)
+        print(kwargs['instance'])
+        return kwargs
+
 
 class MailingUpdateView(LoginRequiredMixin, UpdateView):
     """Класс контролер для редактирования рассылок"""

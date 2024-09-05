@@ -11,6 +11,7 @@
             <div class="card-body">
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                     <li>{{ message.body_of_letter }}</li>
+                    <li>{{ message.creator }}</li>
                 </ul>
                 {% if user == message.creator %}
                 <a class="p-2 btn btn-outline-primary" href="/info_message/{{ message.id }}/">Посмотреть</a>

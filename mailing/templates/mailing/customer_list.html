@@ -11,6 +11,7 @@
             <div class="card-body">
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                     <li>{{ customer.last_name }}</li>
+                    <li>{{ customer.creator }}</li>
                 </ul>
                 {% if user == customer.creator %}
                 <a class="p-2 btn btn-outline-primary" href="/info_customer/{{ customer.id }}/">Посмотреть</a>

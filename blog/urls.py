@@ -10,4 +10,4 @@ app_name = BlogConfig.name
 urlpatterns = [
     # Урлы для главной страницы
     path('blog/', BlogListView.as_view(), name='blog_list'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

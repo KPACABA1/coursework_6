@@ -19,4 +19,4 @@ urlpatterns = [
     # Урлы для просмотра и редактирования пользователя модератором
     path('user/', UserListView.as_view(), name='user_list'),
     path('edit_user/<int:pk>/', ManagerUserUpdateView.as_view(), name='edit_user'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

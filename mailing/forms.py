@@ -35,6 +35,13 @@ class MailingForm(StyleFormMixin, ModelForm):
         model = Mailing
         exclude = ('date_and_time_of_first_mailing', 'mailing_status', 'date_letter_was_sent', 'creator')
 
+    def __init__(self, *args, **kwargs):
+        """Переопределяю метод для того, чтобы в поля клиенты и сообщения выводились только те, у которых с рассылкой
+        совпадают создатели"""
+        super().__init__(*args, **kwargs)
+        self.fields['customers_of_service'].queryset = Customer.objects.filter(creator=self.instance.creator)
+        self.fields['message'].queryset = Message.objects.filter(creator=self.instance.creator)
+
 
 class MailingManagerForm(StyleFormMixin, ModelForm):
     """Класс форма для редактирования рассылки менеджером"""
