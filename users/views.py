@@ -3,9 +3,9 @@ import secrets
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 
-from users.forms import UserRegisterForm, ManagerChangeUserForm
+from users.forms import UserRegisterForm, ManagerChangeUserForm, UserProfileChangeForm
 from users.models import User
 
 # Импортирую почту
@@ -56,3 +56,25 @@ class ManagerUserUpdateView(UpdateView):
     form_class = ManagerChangeUserForm
     success_url = reverse_lazy('users:user_list')
     template_name = 'users/manager_change_profile.html'
+
+
+class ProfileUpdateView(UpdateView):
+    """Класс-контроллер для редактирования профиля сами пользователем"""
+    model = User
+    form_class = UserProfileChangeForm
+    success_url = reverse_lazy('users:profile')
+
+    def get_object(self, queryset=None):
+        """Метод для получения пользователя, чтобы понять какого пользователя мы редактируем"""
+        return self.request.user
+
+
+class ProfileDeleteView(DeleteView):
+    model = User
+    success_url = reverse_lazy('users:login')
+    template_name = 'users/profile_delete.html'
+
+
+    def get_object(self, queryset=None):
+        """Метод для получения пользователя, чтобы понять какого пользователя мы редактируем"""
+        return self.request.user

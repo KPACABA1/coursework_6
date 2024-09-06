@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
+from django.views.decorators.cache import cache_page
+
 from mailing.apps import MailingConfig
 from mailing.views import MessageListView, MessageCreateView, MessageUpdateView, MessageDetailView, MessageDeleteView, \
     CustomerListView, CustomerCreateView, CustomerUpdateView, CustomerDetailView, CustomerDeleteView, MailingListView, \
@@ -24,8 +26,8 @@ urlpatterns = [
     path('info_customer/<int:pk>/', CustomerDetailView.as_view(), name='info_customer'),
     path('delete_customer/<int:pk>/', CustomerDeleteView.as_view(), name='delete_customer'),
 
-    # Урлы для рассылок
-    path('', MailingListView.as_view(), name='mailing_list'),
+    # Урлы для рассылок, с кэшированием контроллера MailingListView
+    path('', cache_page(60)(MailingListView.as_view()), name='mailing_list'),
     path('create_mailing/', MailingCreateView.as_view(), name='create_mailing'),
     path('edit_mailing/<int:pk>/', MailingUpdateView.as_view(), name='edit_mailing'),
     path('info_mailing/<int:pk>/', MailingDetailView.as_view(), name='info_mailing'),

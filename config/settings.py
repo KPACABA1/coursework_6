@@ -169,3 +169,8 @@ LOGOUT_REDIRECT_URL = '/'
 # Настройки для работы изображений
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Настройка для кэширования контроллеров
+CACHE_ENABLED = os.getenv('CACHE_ENABLED', False) == 'True'
+if CACHE_ENABLED:
+    CACHES = {'default':{'BACKEND':'django.core.cache.backends.redis.RedisCache', 'LOCATION':os.getenv('LOCATION')}}
